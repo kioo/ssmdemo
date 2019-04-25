@@ -3,11 +3,11 @@ package com.ssm.demo.service.impl;
 import com.ssm.demo.dao.AdminUserDao;
 import com.ssm.demo.entity.AdminUser;
 import com.ssm.demo.service.AdminUserService;
-import com.ssm.demo.utiles.MD5Util;
-import com.ssm.demo.utiles.NumberUtil;
-import com.ssm.demo.utiles.SystemUtil;
+import com.ssm.demo.utiles.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 
 @Service("adminUserService")//注意这个注解
@@ -15,6 +15,14 @@ public class AdminUserServiceImpl implements AdminUserService {
 
     @Autowired
     private AdminUserDao adminUserDao;
+
+    @Override
+    public PageResult getAdminUserPage(PageUtil pageUtil) {
+        List<AdminUser> users = adminUserDao.findAdminUsers(pageUtil);
+        int total = adminUserDao.getTotalAdminUser(pageUtil);
+        PageResult pageResult = new PageResult(users, total, pageUtil.getLimit(), pageUtil.getPage());
+        return pageResult;
+    }
 
     @Override
     public AdminUser updateTokenAndLogin(String userName, String password) {

@@ -1,8 +1,12 @@
 package com.ssm.demo.service;
 
 import com.ssm.demo.entity.AdminUser;
+import com.ssm.demo.utiles.PageResult;
+import com.ssm.demo.utiles.PageUtil;
 
 public interface AdminUserService {
+
+    PageResult getAdminUserPage(PageUtil pageUtil);
     /**
      * 登陆功能
      *

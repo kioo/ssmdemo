@@ -3,7 +3,26 @@ package com.ssm.demo.dao;
 import com.ssm.demo.entity.AdminUser;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+import java.util.Map;
+
 public interface AdminUserDao {
+
+    /**
+     * 根据参数查询用户列表
+     *
+     * @param param
+     * @return
+     */
+    List<AdminUser> findAdminUsers(Map param);
+
+    /**
+     * 查询用户总数
+     *
+     * @param param
+     * @return
+     */
+    int getTotalAdminUser(Map param);
 
     /**
      * 根据登录名和密码获取用户记录

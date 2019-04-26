@@ -6415,7 +6415,6 @@ $.jgrid.extend({
 								postdata = $.extend(addpost,postdata);
 								$($t).jqGrid("progressBar", {method:"show", loadtype : $t.p.loadui, htmlcontent: $.jgrid.getRegional($t,'defaults.savetext') });
 								$t.grid.hDiv.loading = true;
-								debugger
 								$.ajax( $.extend( {
 									url: $t.p.cellurl,
 									data :$.isFunction($t.p.serializeCellData) ? $t.p.serializeCellData.call($t, postdata, nm) : postdata,
@@ -6424,7 +6423,6 @@ $.jgrid.extend({
 										$($t).jqGrid("progressBar", {method:"hide", loadtype : $t.p.loadui });
 										$t.grid.hDiv.loading = false;
 										if (stat === 'success') {
-											debugger;
 											var ret = $($t).triggerHandler("jqGridAfterSubmitCell", [$t, result, postdata[idname], nm, v, iRow, iCol]) || [true, ''];
 											if (ret[0] === true && $.isFunction($t.p.afterSubmitCell)) {
 												ret = $t.p.afterSubmitCell.call($t, result, postdata[idname], nm, v, iRow, iCol);

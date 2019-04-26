@@ -166,3 +166,12 @@ function showErrorInfo(info) {
     $('.alert-danger').css("display", "block");
     $('.alert-danger').html(info);
 }
+
+/**
+ * 检查cookie
+ */
+function checkResultCode(code) {
+    if (code == 402) {
+        window.location.href = "login.html";
+    }
+}

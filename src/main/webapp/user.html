@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>SSM | 我是</title>
+    <title>SSM | 用户管理</title>
     <!-- jqgrid ui -->
     <link href="plugins/jqgrid-5.3.0/ui.jqgrid-bootstrap4.css" rel="stylesheet"/>
     <link rel="stylesheet" href="plugins/bootstrap/css/bootstrap.css">
@@ -15,6 +15,10 @@
     <link rel="stylesheet" href="plugins/font-awesome/css/font-awesome.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="dist/css/adminlte.min.css">
+    <!-- sweet alert -->
+    <link rel="stylesheet" href="plugins/sweetalert/sweetalert.css">
+    <!-- custombox -->
+    <link rel="stylesheet" href="plugins/custombox/custombox.min.css">
 </head>
 <body class="hold-transition sidebar-mini" onLoad="checkCookie();">
     <div class="wrapper">
@@ -148,6 +152,14 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
+                                <div class="grid-btn">
+                                    <button class="btn btn-info" onclick="userAdd()">
+                                        <i class="fa fa-plus"></i>&nbsp;新增
+                                    </button>
+                                    <button class="btn btn-warning" onclick="userEdit()">
+                                        <i class="fa fa-edit"></i>&nbsp;编辑
+                                    </button>
+                                </div>
                                 <table id="jqGrid" class="table table-bordered">
                                 </table>
                                 <div id="jqGridPager"></div>
@@ -156,6 +168,62 @@
                     </div>
                 </div>
             </div>
+        </div>
+
+        <div class="content" id="modalAdd" style="display: none">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content" style="width: 400px;height: 420px;">
+                    <div class="modal-header">
+                        <h6 class="modal-title" id="userModalLabel">用户添加</h6>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <div class="alert alert-danger add-error-info">错误信息展示栏。</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="userName" class="control-label">用户名:</label>
+                                <input type="text" class="form-control" id="userName">
+                            </div>
+                            <div class="form-group">
+                                <label for="password" class="control-label">密码:</label>
+                                <input type="text" class="form-control" id="password">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" id="cancelAdd">取消</button>
+                        <button type="button" class="btn btn-primary" id="saveButton">确认</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content" id="modalEdit" style="display: none">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content" style="width: 400px;height: 320px;">
+                    <div class="modal-header">
+                        <h6 class="modal-title" id="modalEditLabel">用户编辑</h6>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <input type="hidden" id="userId" value="0">
+                            <div class="form-group">
+                                <div class="alert alert-danger edit-error-info">错误信息展示栏。</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="passwordEdit" class="control-label">新密码:</label>
+                                <input type="text" class="form-control" id="passwordEdit">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" id="cancelEdit">取消</button>
+                        <button type="button" class="btn btn-primary" id="editButton">确认</button>
+                    </div>
+                </div>
+            </div>
+            <!-- /.content -->
         </div>
         <!-- content-wrapper -->
         <footer class="main-footer">
@@ -173,6 +241,8 @@
 <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="plugins/jqgrid-5.3.0/grid.locale-cn.js"></script>
 <script src="plugins/jqgrid-5.3.0/jquery.jqGrid.min.js"></script>
+<script src="plugins/custombox/custombox.min.js"></script>
+<script src="plugins/custombox/custombox.legacy.min.js"></script>
 <script src="dist/js/public.js"></script>
 <script src="dist/js/user.js"></script>
 <script src="dist/js/adminlte.js"></script>

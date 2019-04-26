@@ -3,6 +3,7 @@ package com.ssm.demo.controller;
 import com.ssm.demo.common.Constants;
 import com.ssm.demo.common.Result;
 import com.ssm.demo.common.ResultGenerator;
+import com.ssm.demo.controller.annotation.TokenToUser;
 import com.ssm.demo.entity.AdminUser;
 import com.ssm.demo.service.AdminUserService;
 import com.ssm.demo.utiles.PageUtil;
@@ -41,5 +42,56 @@ private AdminUserService adminUserService;
         //查询列表数据
         PageUtil pageUtil = new PageUtil(params);
         return ResultGenerator.genSuccessResult(adminUserService.getAdminUserPage(pageUtil));
+    }
+
+    /**
+     * 保存
+     */
+    @RequestMapping("/save")
+    public Result save(@RequestBody AdminUser user,@TokenToUser AdminUser loginUser) {
+        if (loginUser==null){
+            return ResultGenerator.genErrorResult(Constants.RESULT_CODE_NOT_LOGIN, "未登录！");
+        }
+        if (StringUtils.isEmpty(user.getUserName()) || StringUtils.isEmpty(user.getPassword())) {
+            return ResultGenerator.genErrorResult(Constants.RESULT_CODE_PARAM_ERROR, "参数异常！");
+        }
+        AdminUser tempUser = adminUserService.selectByUserName(user.getUserName());
+        if (tempUser != null) {
+            return ResultGenerator.genErrorResult(Constants.RESULT_CODE_PARAM_ERROR, "用户已存在勿重复添加！");
+        }
+        if ("admin".endsWith(user.getUserName().trim())) {
+            return ResultGenerator.genErrorResult(Constants.RESULT_CODE_PARAM_ERROR, "不能添加admin用户！");
+        }
+        if (adminUserService.save(user) > 0) {
+            return ResultGenerator.genSuccessResult();
+        } else {
+            return ResultGenerator.genFailResult("添加失败");
+        }
+    }
+
+    /**
+     * 修改
+     */
+    @RequestMapping("/updatePassword")
+    public Result update(@RequestBody AdminUser user,@TokenToUser AdminUser loginUser) {
+        if (loginUser==null){
+            return ResultGenerator.genErrorResult(Constants.RESULT_CODE_NOT_LOGIN, "未登录！");
+        }
+        if (StringUtils.isEmpty(user.getPassword())) {
+            return ResultGenerator.genErrorResult(Constants.RESULT_CODE_PARAM_ERROR, "请输入密码！");
+        }
+        AdminUser tempUser = adminUserService.selectById(user.getId());
+        if (tempUser == null) {
+            return ResultGenerator.genErrorResult(Constants.RESULT_CODE_PARAM_ERROR, "无此用户！");
+        }
+        if ("admin".endsWith(tempUser.getUserName().trim())) {
+            return ResultGenerator.genErrorResult(Constants.RESULT_CODE_PARAM_ERROR, "不能修改admin用户！");
+        }
+        tempUser.setPassword(user.getPassword());
+        if (adminUserService.updatePassword(user) > 0) {
+            return ResultGenerator.genSuccessResult();
+        } else {
+            return ResultGenerator.genFailResult("添加失败");
+        }
     }
 }

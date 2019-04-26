@@ -20,4 +20,30 @@ public interface AdminUserService {
      * @return
      */
     AdminUser getAdminUserByToken(String userToken);
+
+    /**
+     * 根据用户名获取用户记录
+     *
+     * @return
+     */
+    AdminUser selectByUserName(String userName);
+    /**
+     * 根据id获取用户记录
+     *
+     * @return
+     */
+    AdminUser selectById(Long id);
+    /**
+     * 新增用户记录
+     *
+     * @return
+     */
+    int save(AdminUser user);
+
+    /**
+     * 修改密码
+     *
+     * @return
+     */
+    int updatePassword(AdminUser user);
 }

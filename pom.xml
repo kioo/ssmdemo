@@ -30,6 +30,7 @@
     <jackson.version>[2.8.11.1,)</jackson.version>
     <commons-io.version>2.4</commons-io.version>
     <commons-fileupload.version>1.3.1</commons-fileupload.version>
+    <poi.version>3.16</poi.version>
   </properties>
 
   <dependencies>
@@ -130,6 +131,19 @@
       <version>${commons-fileupload.version}</version>
     </dependency>
     <!-- Start: commons相关依赖包 -->
+    <!-- Start: POI 相关依赖包 -->
+    <dependency>
+      <groupId>org.apache.poi</groupId>
+      <artifactId>poi</artifactId>
+      <version>${poi.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.poi</groupId>
+      <artifactId>poi-ooxml</artifactId>
+      <version>${poi.version}</version>
+    </dependency>
+    <!-- -->
+
   </dependencies>
 
   <build>

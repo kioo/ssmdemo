@@ -3,7 +3,7 @@ package com.ssm.demo.controller;
 import com.ssm.demo.common.Result;
 
 import com.ssm.demo.common.ResultGenerator;
-import com.ssm.demo.utiles.FileUtil;
+import com.ssm.demo.utils.FileUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;

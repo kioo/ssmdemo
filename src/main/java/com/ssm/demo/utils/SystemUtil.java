@@ -1,4 +1,4 @@
-package com.ssm.demo.utiles;
+package com.ssm.demo.utils;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;

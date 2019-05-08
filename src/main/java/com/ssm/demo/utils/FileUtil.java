@@ -1,4 +1,4 @@
-package com.ssm.demo.utiles;
+package com.ssm.demo.utils;
 
 import org.apache.commons.io.FileUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -6,12 +6,57 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import java.io.*;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.UUID;
 
 public class FileUtil {
+
     /**
-     * @param request
+     * 转换 MultipartFile 对象为 java.io.File 类型
+     * @param multipartFile
      * @return
      */
+    public static File convertMultipartFileToFile(MultipartFile multipartFile){
+        File result = null;
+        try{
+            result = File.createTempFile(UUID.randomUUID().toString(),null);
+            multipartFile.transferTo(result);
+            result.deleteOnExit();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    /**
+     * 根据url获取文件对象
+     *
+     * @param fileUrl
+     * @return
+     */
+    public static File downloadFile(String fileUrl) {
+        File result = null;
+        try {
+            result = File.createTempFile(UUID.randomUUID().toString(), null);
+            URL url = new URL(fileUrl);
+            URLConnection connection = url.openConnection();
+            connection.setConnectTimeout(3000);
+            BufferedInputStream bis = new BufferedInputStream(connection.getInputStream());
+            BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(result));
+            byte[] car = new byte[1024];
+            int l = 0;
+            while ((l = bis.read(car)) != -1) {
+                bos.write(car, 0, l);
+            }
+            bis.close();
+            bos.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
     public static String getRealPath(HttpServletRequest request) {
         ServletContext sc = request.getSession().getServletContext();
         String uploadDir = sc.getRealPath("/upload");

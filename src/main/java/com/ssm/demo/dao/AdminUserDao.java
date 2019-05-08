@@ -72,4 +72,18 @@ public interface AdminUserDao {
      * @return
      */
     AdminUser getAdminUserByUserName(String userName);
+
+    /**
+     * 批量新增用户记录
+     *
+     * @return
+     */
+    int insertUsersBatch(@Param("adminUsers") List<AdminUser> adminUsers);
+
+    /**
+     * 查询所有用户列表
+     *
+     * @return
+     */
+    List<AdminUser> getAllAdminUsers();
 }

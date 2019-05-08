@@ -7,7 +7,7 @@ import com.ssm.demo.controller.annotation.TokenToUser;
 import com.ssm.demo.entity.AdminUser;
 import com.ssm.demo.entity.Picture;
 import com.ssm.demo.service.PictureService;
-import com.ssm.demo.utiles.PageUtil;
+import com.ssm.demo.utils.PageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;

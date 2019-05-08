@@ -1,8 +1,8 @@
 package com.ssm.demo.service;
 
 import com.ssm.demo.entity.Picture;
-import com.ssm.demo.utiles.PageResult;
-import com.ssm.demo.utiles.PageUtil;
+import com.ssm.demo.utils.PageResult;
+import com.ssm.demo.utils.PageUtil;
 
 public interface PictureService {
     /**

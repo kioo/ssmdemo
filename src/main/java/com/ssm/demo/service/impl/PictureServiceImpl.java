@@ -3,8 +3,8 @@ package com.ssm.demo.service.impl;
 import com.ssm.demo.dao.PictureDao;
 import com.ssm.demo.entity.Picture;
 import com.ssm.demo.service.PictureService;
-import com.ssm.demo.utiles.PageResult;
-import com.ssm.demo.utiles.PageUtil;
+import com.ssm.demo.utils.PageResult;
+import com.ssm.demo.utils.PageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

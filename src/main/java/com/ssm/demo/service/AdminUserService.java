@@ -1,8 +1,11 @@
 package com.ssm.demo.service;
 
 import com.ssm.demo.entity.AdminUser;
-import com.ssm.demo.utiles.PageResult;
-import com.ssm.demo.utiles.PageUtil;
+import com.ssm.demo.utils.PageResult;
+import com.ssm.demo.utils.PageUtil;
+
+import java.io.File;
+import java.util.List;
 
 public interface AdminUserService {
 
@@ -46,4 +49,13 @@ public interface AdminUserService {
      * @return
      */
     int updatePassword(AdminUser user);
+
+    int importUsersByExcelFile(File file);
+
+    /**
+     * 获取导出数据
+     *
+     * @return
+     */
+    List<AdminUser> getUsersForExport();
 }

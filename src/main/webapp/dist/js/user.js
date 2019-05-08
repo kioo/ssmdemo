@@ -1,4 +1,4 @@
-$(function (){
+$(function () {
     debugger
     $("#jqGrid").jqGrid({
         url: 'users/list',
@@ -34,12 +34,62 @@ $(function (){
             $("#jqGrid").closest(".ui-jqgrid-bdiv").css({"overflow-x": "hidden"});
         }
     });
+
+    // importV1
+    new AjaxUpload('#importV1Button', {
+        action: 'users/importV1',
+        name: 'file',
+        autoSubmit: true,
+        responseType: "json",
+        onSubmit: function (file, extension) {
+            if (!(extension && /^(xlsx)$/.test(extension.toLocaleString()))) {
+                alert('只支持xlsx格式的文件！ ', {
+                    icon: "error",
+                });
+                return false;
+            }
+        },
+        onComplete: function (file, r) {
+            if (r.resultCode == 200) {
+                alert("成功导入" + r.data + "条记录！");
+                reload();
+                return false;
+            } else {
+                alert(r.message);
+            }
+        }
+    });
+
+    // importV2
+    new AjaxUpload('#uploadExcelV2',{
+       action: 'upload/file',
+       name: 'file',
+       autoSubmit: true,
+       responseType: "json",
+       onSubmit: function (file, extension) {
+           if (!(extension && /^(xlsx)$/.test(extension.toLocaleString()))) {
+               alert('只支持xlsx格式的文件！ ', {
+                   icon: "error",
+               });
+               return false;
+           }
+       } ,
+        onComplete: function(file,r){
+           if(r.resultCode == 200){
+               console.log(r);
+               $("#fileUrl").val(r.data);
+               return false;
+           }else{
+               alert(r.message);
+           }
+        }
+    });
 });
 
 function userAdd() {
     // 点击添加按钮执行的操作
     var modal = new Custombox.modal({
-        content:{
+        content: {
             effect: 'fadein',
             target: '#modalAdd'
         }
@@ -47,9 +97,9 @@ function userAdd() {
     modal.open()
 }
 
-function userEdit(){
+function userEdit() {
     var id = getSelection();
-    if(id == null){
+    if (id == null) {
         return;
     }
 
